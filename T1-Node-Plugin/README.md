@@ -1,8 +1,8 @@
 ## Tugas 1 - Node.js Plugins
 
-**Mata Kuliah:** Pemrograman Web Lanjut - Kelas B
-**Nama:** Rakasya Yoga Surya Pratama
-**NIM:** F1D02310022
+* **Mata Kuliah:** Pemrograman Web Lanjut - Kelas B
+* **Nama:** Rakasya Yoga Surya Pratama
+* **NIM:** F1D02310022
 
 Repository ini dibuat untuk memenuhi **Tugas 1 - Node.js Plugins** Matakuliah Pemrograman Web Lanjut mengenai penggunaan package/plugin Node.js.
 
@@ -108,4 +108,4 @@ Input tersebut akan ditampilkan kembali pada terminal sebagai kata sambutan awal
 
 ## Hasil Screenshot Output
 
-![Output Program](screenshot/output.png)
+![Output Program](screenshot/screenshot.png)
