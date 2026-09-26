@@ -25,56 +25,56 @@ Data yang digunakan dalam tugas ini adalah kumpulan film populer dari Marvel Cin
 ### map()
 - Tujuan : digunakan untuk mengambil judul setiap film dan menambahkan tahun rilis pada judul tersebut.
 - Screenshot
-kode:
+* kode:
 ![ss](screenshot/codeMap().png)
 
-hasil:
+* hasil:
 ![ss](screenshot/map().png)
 
 ### filter()
 - Tujuan : digunakan untuk mengambil film yang memiliki rating minimal 8.0.
 - Screenshot
-kode:
+* kode:
 ![ss](screenshot/codeFilter().png)
 
-hasil:
-![ss](screenshot/Filter().png)
+* hasil:
+![ss](screenshot/filter().png)
 
 ### reduce()
 - Tujuan : digunakan untuk menghitung total rating dari seluruh film MCU yang terdapat pada list.
 - Screenshot
-kode:
+* kode:
 ![ss](screenshot/codeReduce().png)
 
-hasil:
+* hasil:
 ![ss](screenshot/reduce().png)
 
 ### find()
 - Tujuan : digunakan untuk mencari satu film berdasarkan judul.
 Film yang dicari adalah **Avengers: Endgame**.
 - Screenshot
-kode:
+* kode:
 ![ss](screenshot/codeFind().png)
 
-hasil:
+* hasil:
 ![ss](screenshot/find().png)
 
 ### some()
 - Tujuan : digunakan untuk mengecek apakah ada setidaknya satu film yang memiliki rating lebih dari 8.5.
 - Screenshot
-kode:
+* kode:
 ![ss](screenshot/codeSome().png)
 
-hasil:
+* hasil:
 ![ss](screenshot/some().png)
 
 ### every()
 - Tujuan : digunakan untuk mengecek apakah seluruh film memiliki rating minimal 6.0.
 - Screenshot
-kode:
+* kode:
 ![ss](screenshot/codeEvery().png)
 
-hasil:
+* hasil:
 ![ss](screenshot/every().png)
 
 
