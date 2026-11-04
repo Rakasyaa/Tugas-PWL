@@ -1,0 +1,80 @@
+@baseUrl = http://localhost:3000
+@apiKey = racer-kantin-2026
+
+### 1. GET semua menu
+GET {{baseUrl}}/menu
+
+### 2. GET filter kategori minuman
+GET {{baseUrl}}/menu?kategori=minuman
+
+### 3. GET detail tersedia
+GET {{baseUrl}}/menu/1
+
+### 4. GET detail tidak ditemukan
+GET {{baseUrl}}/menu/999
+
+### 5. URL tidak dikenal
+GET {{baseUrl}}/produk
+
+### 6. POST berhasil (201)
+POST {{baseUrl}}/menu
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+{
+  "nama": "Sate Ayam",
+  "harga": 20000,
+  "kategori": "makanan"
+}
+
+### 7. POST tanpa API key (401)
+POST {{baseUrl}}/menu
+Content-Type: application/json
+
+{
+  "nama": "Soto Ayam",
+  "harga": 15000,
+  "kategori": "makanan"
+}
+
+### 8. POST validasi gagal (422)
+POST {{baseUrl}}/menu
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+{
+  "nama": "A",
+  "harga": 500,
+  "kategori": "dessert"
+}
+
+### 9. POST nama duplikat (409)
+POST {{baseUrl}}/menu
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+{
+  "nama": "nAsI gOrEnG",
+  "harga": 17000,
+  "kategori": "makanan"
+}
+
+### 10. DELETE berhasil (204)
+DELETE {{baseUrl}}/menu/8
+x-api-key: {{apiKey}}
+
+### 11. DELETE tidak ditemukan (404)
+DELETE {{baseUrl}}/menu/999
+x-api-key: {{apiKey}}
+
+### BONUS 12. PUT berhasil (200)
+PUT {{baseUrl}}/menu/2
+Content-Type: application/json
+x-api-key: {{apiKey}}
+
+{
+  "nama": "Mie Ayam Spesial",
+  "harga": 16000,
+  "kategori": "makanan",
+  "tersedia": true
+}
