@@ -1,0 +1,52 @@
+export const menu = [
+  {
+    id: 1,
+    nama: "Nasi Goreng",
+    harga: 15000,
+    kategori: "makanan",
+    tersedia: true,
+  },
+  {
+    id: 2,
+    nama: "Mie Ayam",
+    harga: 12000,
+    kategori: "makanan",
+    tersedia: true,
+  },
+  {
+    id: 3,
+    nama: "Ayam Geprek",
+    harga: 18000,
+    kategori: "makanan",
+    tersedia: true,
+  },
+  { id: 4, nama: "Es Teh", harga: 5000, kategori: "minuman", tersedia: true },
+  {
+    id: 5,
+    nama: "Jus Alpukat",
+    harga: 10000,
+    kategori: "minuman",
+    tersedia: true,
+  },
+  {
+    id: 6,
+    nama: "Air Mineral",
+    harga: 4000,
+    kategori: "minuman",
+    tersedia: true,
+  },
+  {
+    id: 7,
+    nama: "Roti Bakar",
+    harga: 12000,
+    kategori: "camilan",
+    tersedia: true,
+  },
+  {
+    id: 8,
+    nama: "Kentang Goreng",
+    harga: 10000,
+    kategori: "camilan",
+    tersedia: false,
+  },
+];

@@ -1,8 +1,14 @@
 {
   "name": "t5-middleware-error",
   "version": "1.0.0",
-  "description": "Tugas 5 Pemrograman Web Lanjut - Middleware dan Error Terpusat",
   "type": "module",
-  "scripts": { "dev": "node --watch index.js", "start": "node index.js" },
-  "dependencies": { "dotenv": "^16.4.7", "express": "^4.21.2", "joi": "^17.13.3" }
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "joi": "^17.13.3"
+  }
 }
