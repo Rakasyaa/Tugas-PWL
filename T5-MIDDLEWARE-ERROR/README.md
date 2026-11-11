@@ -155,15 +155,11 @@ Untuk menguji error 500 sesuai instruksi, ubah sementara `menu.push(item)` di `s
 
 ## Deklarasi Penggunaan AI
 
-| Bagian                                        | Alat AI | Dipakai untuk apa                                                        | Cara saya memeriksa hasilnya                                              |
-| --------------------------------------------- | ------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| Struktur Express, router, controller, service | ChatGPT | Membantu menyusun pemisahan empat lapis dan endpoint                     | Menjalankan server dan menguji endpoint melalui `requests.http`           |
-| Middleware dan error terpusat                 | ChatGPT | Membantu membuat logger, cekApiKey, notFound, AppError, dan errorHandler | Menguji status 401, 404, dan 500 serta memeriksa log terminal             |
-| Skema Joi                                     | ChatGPT | Membantu menyusun aturan validasi field menu                             | Mengirim data tidak valid dan memastikan respons 422                      |
-| Aturan bisnis                                 | ChatGPT | Membantu menerapkan pemeriksaan nama duplikat di service                 | Mengirim nama sama dengan kombinasi huruf besar/kecil dan memastikan 409  |
-| Dokumentasi dan requests.http                 | ChatGPT | Membantu menyusun README dan skenario pengujian                          | Menjalankan setiap request dan mencocokkan hasil dengan spesifikasi tugas |
-
-Contoh prompt: "Buatkan API Express varian Kantin dengan router, middleware logger dan API key, validasi Joi, serta error handler terpusat sesuai spesifikasi tugas."
+| Bagian                                        | Alat AI | Dipakai untuk apa                                                        | Cara saya memeriksa hasilnya                                                |
+| --------------------------------------------- | ------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| Struktur Express, router, controller, service | ChatGPT | Membantu menyusun pemisahan empat lapis dan endpoint                     | Menjalankan server dan menguji endpoint melalui Postman dan `requests.http` |
+| Middleware dan error terpusat                 | ChatGPT | Membantu membuat logger, cekApiKey, notFound, AppError, dan errorHandler | Menguji status 401, 404, dan 500 serta memeriksa log terminal               |
+| Skema Joi                                     | ChatGPT | Membantu menyusun aturan validasi field menu                             | Mengirim data tidak valid dan memastikan respons 422                        |
 
 Pernyataan: Saya menggunakan ChatGPT sebagai alat bantu pada bagian-bagian yang tercantum di tabel. Saya memeriksa hasilnya dengan menjalankan aplikasi dan menguji endpoint melalui REST Client, serta memahami kembali fungsi setiap lapisan kode.
 
