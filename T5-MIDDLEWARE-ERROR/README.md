@@ -11,11 +11,9 @@
 1. Pastikan Node.js dan npm sudah terpasang.
 2. Jalankan `npm install`.
 3. Salin `.env.example` menjadi `.env`.
-4. Atur `API_KEY` di `.env` (contoh: `racer-kantin-2026`).
+4. Atur `API_KEY` di `.env` (contoh: `f1d02310022`).
 5. Jalankan `npm run dev`.
 6. Server aktif di `http://localhost:3000`.
-
-Jika `API_KEY` tidak diset, aplikasi menggunakan fallback `racer-kantin-2026`. Untuk deployment, sebaiknya tetapkan API key melalui environment variable dan jangan mengunggah file `.env`.
 
 ## Struktur Proyek
 
@@ -69,17 +67,87 @@ Format error konsisten: `{ "error": { "pesan": "...", "kode": "..." } }`. Detail
 
 ## Pengujian
 
-Jalankan setiap request pada `requests.http` menggunakan ekstensi REST Client di VS Code. Simpan bukti tangkapan layar di folder `screenshot/`.
+Pengujian dilakukan menggunakan Postman untuk memastikan seluruh endpoint berjalan sesuai fungsinya, termasuk pengujian kondisi berhasil maupun kondisi error.
 
-1. GET daftar dan filter kategori: memastikan data menu dan filter bekerja.
-2. GET detail 200 dan 404: memastikan pencarian berdasarkan ID.
-3. URL tidak dikenal: memastikan `ROUTE_NOT_FOUND`.
-4. POST 201: memastikan data valid berhasil ditambahkan.
-5. POST 401: memastikan API key wajib.
-6. POST 422: memastikan seluruh kesalahan validasi dikembalikan.
-7. POST 409: memastikan nama duplikat ditolak.
-8. DELETE 204 dan 404: memastikan penghapusan dan penanganan ID tidak ditemukan.
-9. PUT 200: pengujian bonus pembaruan data.
+### 1. Pengujian GET
+
+1. GET semua data menu untuk menampilkan seluruh daftar menu yang tersedia.
+
+![GET All](screenshot/Postman/GET-all.png)
+
+2. GET data menu berdasarkan ID untuk menampilkan detail menu tertentu.
+
+![GET ID](screenshot/Postman/GET-id.png)
+
+3. GET data menu berdasarkan kategori menggunakan query parameter.
+
+![GET Kategori](screenshot/Postman/GET-katagori.png)
+
+4. GET berdasarkan ID yang tidak ditemukan untuk memastikan sistem mengembalikan status 404.
+
+![GET ID Error](screenshot/Postman/GET-id-error.png)
+
+### 2. Pengujian POST
+
+1. POST data menu dengan format yang benar untuk memastikan data berhasil ditambahkan dengan status 201.
+
+![POST Berhasil](screenshot/Postman/POST.png)
+
+2. POST tanpa API Key atau menggunakan API Key yang salah untuk memastikan akses ditolak dengan status 401.
+
+![API Key Error](screenshot/Postman/API-error.png)
+
+3. POST dengan format atau nilai input yang tidak sesuai aturan validasi untuk memastikan sistem mengembalikan status 422.
+
+![POST Format Salah](screenshot/Postman/POST-format-salah.png)
+
+4. POST dengan nama menu yang sudah terdaftar untuk memastikan sistem menolak data duplikat dengan status 409.
+
+![POST Duplikat](screenshot/Postman/POST-duplikat.png)
+
+### 3. Pengujian PUT
+
+1. PUT data menu berdasarkan ID untuk memperbarui informasi menu yang sudah tersedia.
+
+![PUT Berhasil](screenshot/Postman/PUT-id.png)
+
+2. PUT dengan kondisi yang menghasilkan error untuk memastikan kesalahan pembaruan ditangani oleh error handler terpusat.
+
+![PUT Error](screenshot/Postman/PUT-error.png)
+
+### 4. Pengujian DELETE
+
+1. DELETE data menu berdasarkan ID untuk menghapus menu yang dipilih.
+
+![DELETE Berhasil](screenshot/Postman/DELETE-id.png)
+
+2. DELETE menggunakan ID yang tidak ditemukan untuk memastikan sistem mengembalikan status 404.
+
+![DELETE Error](screenshot/Postman/DELETE-error.png)
+
+### 5. Pengujian Error Terpusat
+
+1. Mengakses endpoint atau URL yang tidak tersedia untuk memastikan middleware `notFound` mengembalikan status 404 dengan kode `ROUTE_NOT_FOUND`.
+
+![URL Error](screenshot/Postman/URL-error.png)
+
+2. Menguji kesalahan internal server untuk memastikan middleware `errorHandler` menangani error dengan status 500 dan memberikan pesan kesalahan umum kepada klien.
+
+![Server Error](screenshot/Postman/SERVER-error.png)
+
+3. Menguji respons kesalahan API untuk memastikan format pesan dan kode error dikembalikan secara konsisten.
+
+![API Error](screenshot/Postman/API-error.png)
+
+### 6. Pengujian REST Client dan Terminal
+
+Pengujian tambahan dilakukan menggunakan REST Client pada Visual Studio Code melalui file `requests.http`. Pengujian ini digunakan untuk memastikan endpoint dapat dijalankan melalui HTTP request langsung dari editor.
+
+Screenshot pengujian REST Client disimpan pada folder `screenshot/REST Client/`.
+
+Pengujian terminal dilakukan untuk memastikan middleware `logger` berhasil mencatat metode request, URL, status response, dan waktu pemrosesan setiap request.
+
+![Terminal Logger](screenshot/TERMINAL.png)
 
 ### Uji Error 500
 
