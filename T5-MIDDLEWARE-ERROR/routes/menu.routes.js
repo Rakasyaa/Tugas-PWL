@@ -1,7 +1,6 @@
 import { Router } from "express";
 import * as menuController from "../controllers/menu.controller.js";
-import { cekApiKey } from "../middlewares/cekApiKey.js";
-import { validate } from "../middlewares/validate.js";
+import { cekApiKey, validate } from "../middlewares/middleware.js";
 import { menuSchema } from "../validators/menu.validator.js";
 
 const router = Router();

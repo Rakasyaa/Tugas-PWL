@@ -1,12 +1,13 @@
 import "dotenv/config";
 import express from "express";
 import menuRouter from "./routes/menu.routes.js";
-import { logger } from "./middlewares/logger.js";
-import { notFound } from "./middlewares/notFound.js";
-import { errorHandler } from "./middlewares/errorHandler.js";
+import { logger, notFound, errorHandler } from "./middlewares/middleware.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  res.send("endpoint /menu Tugas PWL Middleware Error Handling");
+});
 
 app.use(express.json());
 app.use(logger);
@@ -14,6 +15,11 @@ app.use("/menu", menuRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, (err) => {
+  if (err) {
+    console.error("Gagal menjalankan server:", err.message);
+    process.exit(1);
+  }
+  console.log(`Server jalan di http://localhost:${PORT}`);
 });

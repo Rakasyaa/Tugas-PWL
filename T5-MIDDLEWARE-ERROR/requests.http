@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3000
-@apiKey = racer-kantin-2026
+@apiKey = f1d02310022
 
 ### 1. GET semua menu
 GET {{baseUrl}}/menu
