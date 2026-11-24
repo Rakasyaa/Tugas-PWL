@@ -1,0 +1,189 @@
+@baseUrl = http://localhost:3000
+@namaSaya = Rakasya Yoga Surya Pratama - F1D02310022
+@emailUji = rakasya.f1d02310022@unram.ac.id
+@passwordUji = tugas9pwl123
+
+# Salin nilai data.token dari hasil request 2 (POST /auth/login) ke sini
+@token = tempel-token-hasil-login-di-sini
+
+# ==========================================================
+# 5 REQUEST WAJIB TUGAS 9
+# ==========================================================
+
+### 1. [201] Register akun uji
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "{{emailUji}}",
+  "password": "{{passwordUji}}"
+}
+
+### 2. [200] Login akun uji (salin data.token ke @token di atas)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{emailUji}}",
+  "password": "{{passwordUji}}"
+}
+
+### 3. [200] GET /buku tanpa token (halaman publik)
+GET {{baseUrl}}/buku?halaman=1&ukuran=5
+
+### 4. [401] POST /buku tanpa token (halaman wajib login -> TOKEN_DIPERLUKAN)
+POST {{baseUrl}}/buku
+Content-Type: application/json
+
+{
+  "isbn": "978{{$timestamp}}",
+  "judul": "Buku Uji Tanpa Token",
+  "penulis": "{{namaSaya}}",
+  "harga": 75000,
+  "stok": 5,
+  "tanggalTerbit": "2024-01-15"
+}
+
+### 5. [201] POST /buku dengan token valid (halaman wajib login)
+# @name tambahBuku
+POST {{baseUrl}}/buku
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "isbn": "978{{$timestamp}}",
+  "judul": "Buku Uji Autentikasi",
+  "penulis": "{{namaSaya}}",
+  "harga": 75000,
+  "stok": 5,
+  "tanggalTerbit": "2024-01-15"
+}
+
+# ==========================================================
+# PENGUJIAN ENDPOINT AUTH TAMBAHAN
+# ==========================================================
+
+### [409] Register email duplikat (EMAIL_DUPLIKAT)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "{{emailUji}}",
+  "password": "{{passwordUji}}"
+}
+
+### [422] Register tidak valid (format email salah & password < 8 karakter)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "bukan-email",
+  "password": "123"
+}
+
+### [401] Login gagal - password salah (LOGIN_GAGAL)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{emailUji}}",
+  "password": "passwordsalah123"
+}
+
+### [401] Login gagal - email tidak terdaftar (pesan sama persis: LOGIN_GAGAL)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "tidakada.f1d02310022@unram.ac.id",
+  "password": "{{passwordUji}}"
+}
+
+### [401] GET /auth/saya tanpa token (TOKEN_DIPERLUKAN)
+GET {{baseUrl}}/auth/saya
+
+### [200] GET /auth/saya dengan token valid (wajib login)
+GET {{baseUrl}}/auth/saya
+Authorization: Bearer {{token}}
+
+# ==========================================================
+# PENGUJIAN PEMBAGIAN ENDPOINT ETS (PUBLIK & WAJIB LOGIN)
+# ==========================================================
+
+### [200] GET /buku/:id tanpa token (publik)
+GET {{baseUrl}}/buku/1
+
+### [401] PUT /buku/:id tanpa token (wajib login)
+PUT {{baseUrl}}/buku/1
+Content-Type: application/json
+
+{
+  "isbn": "9780000000001",
+  "judul": "Edit Tanpa Token",
+  "penulis": "{{namaSaya}}",
+  "harga": 80000,
+  "stok": 5,
+  "tanggalTerbit": "2024-01-15"
+}
+
+### [200] PUT /buku/:id dengan token valid (wajib login)
+PUT {{baseUrl}}/buku/{{tambahBuku.response.body.$.data.id}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "isbn": "{{tambahBuku.response.body.$.data.isbn}}",
+  "judul": "Buku Uji Autentikasi (Edit)",
+  "penulis": "{{namaSaya}}",
+  "harga": 80000,
+  "stok": 7,
+  "tanggalTerbit": "2024-01-15"
+}
+
+### [401] DELETE /buku/:id tanpa token (wajib login)
+DELETE {{baseUrl}}/buku/1
+
+### [204] DELETE /buku/:id dengan token valid (wajib login)
+DELETE {{baseUrl}}/buku/{{tambahBuku.response.body.$.data.id}}
+Authorization: Bearer {{token}}
+
+### [200] GET /peminjaman tanpa token (publik - include data buku)
+GET {{baseUrl}}/peminjaman
+
+### [401] POST /peminjaman tanpa token (wajib login - transaksi dua tabel)
+POST {{baseUrl}}/peminjaman
+Content-Type: application/json
+
+{
+  "bukuId": 3,
+  "namaPeminjam": "{{namaSaya}}",
+  "jumlah": 1
+}
+
+### [201] POST /peminjaman dengan token valid (wajib login - transaksi dua tabel)
+POST {{baseUrl}}/peminjaman
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "bukuId": 3,
+  "namaPeminjam": "{{namaSaya}}",
+  "jumlah": 1
+}
+
+# ==========================================================
+# DUA PERCOBAAN WAJIB (BAGIAN 4)
+# ==========================================================
+
+### Percobaan 1 - [401] Token dipalsukan (payload diubah jadi {"id":999} tanpa secret)
+# Cara buat: ambil header & signature dari token hasil login, ganti bagian tengah (payload)
+# dengan Base64URL dari {"id":999,"iat":1700000000,"exp":4102444800} -> eyJpZCI6OTk5LCJpYXQiOjE3MDAwMDAwMDAsImV4cCI6NDEwMjQ0NDgwMH0
+GET {{baseUrl}}/auth/saya
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTk5LCJpYXQiOjE3MDAwMDAwMDAsImV4cCI6NDEwMjQ0NDgwMH0.signature-asli-hasil-login-tidak-cocok
+
+### Percobaan 2 - [401] Token expired
+# Cara uji: ubah sementara expiresIn di src/services/auth.service.js menjadi "5s",
+# restart server, jalankan POST /auth/login, tempel token ke @token, tunggu 6 detik,
+# lalu kirim request ini. Setelah selesai, kembalikan expiresIn ke "2h".
+GET {{baseUrl}}/auth/saya
+Authorization: Bearer {{token}}

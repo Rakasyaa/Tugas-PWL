@@ -1,0 +1,51 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// Tabel utama: buku
+// - kolom angka   : harga, stok
+// - kolom tanggal : tanggalTerbit, createdAt
+// - kolom unik    : isbn
+model Buku {
+  id            Int      @id @default(autoincrement())
+  isbn          String   @unique @db.VarChar(20)
+  judul         String   @db.VarChar(150)
+  penulis       String   @db.VarChar(100)
+  harga         Int
+  stok          Int      @default(0)
+  tanggalTerbit DateTime @db.Date
+  createdAt     DateTime @default(now())
+
+  peminjaman Peminjaman[]
+
+  @@map("buku")
+}
+
+// Tabel kedua: peminjaman (satu buku bisa dipinjam berkali-kali -> relasi 1-N)
+model Peminjaman {
+  id            Int      @id @default(autoincrement())
+  bukuId        Int
+  namaPeminjam  String   @db.VarChar(100)
+  jumlah        Int      @default(1)
+  tanggalPinjam DateTime @default(now())
+
+  buku Buku @relation(fields: [bukuId], references: [id])
+
+  @@map("peminjaman")
+}
+
+// Tabel tambahan Tugas 9: users (satu jenis pengguna, tanpa role)
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique @db.VarChar(100)
+  passwordHash String   @db.VarChar(100)
+  createdAt    DateTime @default(now())
+
+  @@map("users")
+}

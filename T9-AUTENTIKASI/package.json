@@ -1,0 +1,23 @@
+{
+  "name": "t9-autentikasi",
+  "version": "1.0.0",
+  "description": "Tugas 9 PWL - Autentikasi & Otorisasi pada Books API (Express.js + MySQL + Prisma)",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "seed": "npx prisma db seed"
+  },
+  "type": "module",
+  "dependencies": {
+    "@prisma/adapter-mariadb": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "joi": "^18.3.2",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "prisma": "^7.10.1"
+  }
+}
